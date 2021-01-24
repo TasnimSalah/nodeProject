@@ -29,7 +29,13 @@ app.use((err,req , res , next)=>{
     }
     if(err.message === 'UN_AUTHENTICATED'){
       res.status(401).json(err.errors);
+    }
+    if(err.message == 'jwt expired'){
+      res.status(401).json(err.errors);
     }  
+    if(err.message == 'ValidationError'){
+      res.status(422).json(err.errors);
+    }
   
     console.log(err);
     //for server error

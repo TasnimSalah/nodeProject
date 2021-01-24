@@ -16,11 +16,21 @@ const getById = (id)=>{
     return Blog.findById(id).exec();
 }
 
-const update = (id , body)=>{
+const update = async (id , body , user_id)=>{
+    const blog = await Blog.findById(id).exec();
+    if(blog.author != user_id){
+        const err = new Error('UN_AUTHENTICATED');
+       throw Error('UN_AUTHENTICATED');
+    }
     return Blog.findByIdAndUpdate(id, body, {new:true});
 }
 
-const remove = (id)=>{
+const remove = async (id , user_id)=>{
+    const blog = await Blog.findById(id).exec();
+    if(blog.author != user_id){
+        const err = new Error('UN_AUTHENTICATED');
+       throw Error('UN_AUTHENTICATED');
+    }
     return Blog.findByIdAndRemove(id);
 };
 

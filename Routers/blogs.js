@@ -20,8 +20,12 @@ const upload = multer({ storage: storage });
 //create
 router.post('/', upload.single('photo'), async (req, res, next) => {
     const { body, user: { id } } = req;
-    const path = req.file.path;
+    if(!req.file){
+        const err = new Error('ValidationError');
+        next(err);
+    }
     try {
+        const path = req.file.path;
         const blog = await create({ ...body, author: id , photo: path });
         res.json(blog);
     } catch (e) {
@@ -59,10 +63,11 @@ router.get('/:id', async (req, res, next) => {
 
 //update
 router.patch('/:id', upload.single('photo') , async (req, res, next) => {
-    const { params: { id }, body } = req;
+    const { params: { id }, body  } = req;
+    const user = req.user.id;
     const path = req.file.path;
     try {
-        const blog = await update(id, {...body , photo:path});
+        const blog = await update(id, {...body , photo:path } , user);
         res.json(blog);
     } catch (e) {
         next(e);
@@ -72,8 +77,9 @@ router.patch('/:id', upload.single('photo') , async (req, res, next) => {
 //delete 
 router.delete('/:id', async (req, res, next) => {
     const { params: { id } } = req;
+    const user = req.user.id;
     try {
-        const blog = await remove(id);
+        const blog = await remove(id , user);
         res.json(blog);
     } catch (e) {
         next(e);
