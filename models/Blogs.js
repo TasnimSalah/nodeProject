@@ -12,6 +12,7 @@ const blogSchema = new Schema({
         required: true,
     },
     tags:[String],
+    created_at: { type: Date, default: Date.now },
     photo:String,
     author:{
         type:mongoose.Schema.Types.ObjectId,

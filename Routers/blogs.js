@@ -1,5 +1,5 @@
 const express = require('express');
-const { create, show, getById, update, remove } = require('../controllers/blog');
+const { create, show, getById, update, remove  } = require('../controllers/blog');
 const multer = require('multer')
 
 
@@ -79,6 +79,8 @@ router.delete('/:id', async (req, res, next) => {
         next(e);
     }
 });
+
+
 
 
 module.exports = router;
