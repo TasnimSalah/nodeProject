@@ -3,7 +3,8 @@ const router = require('./Routers');
 const mongoose = require('mongoose');
 
 const app = express();
-mongoose.connect('mongodb://localhost:27017/nodeproject' , { useUnifiedTopology: true });
+const { MONGODB_URI } = process.env; 
+mongoose.connect(MONGODB_URI , { useUnifiedTopology: true });
 
 app.use(express.json());//middleware to convert json object in body to js
 
