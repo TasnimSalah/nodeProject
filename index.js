@@ -1,8 +1,10 @@
 const express = require('express');
 const router = require('./Routers');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 const app = express();
+app.use(cors());
 const { MONGODB_URI } = process.env; 
 mongoose.connect(MONGODB_URI , { useUnifiedTopology: true });
 
