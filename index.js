@@ -2,8 +2,11 @@ const express = require('express');
 const router = require('./Routers');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const dotenv = require("dotenv");
+ 
 
 const app = express();
+dotenv.config();
 app.use(cors());
 const { MONGODB_URI } = process.env; 
 mongoose.connect(MONGODB_URI , { useUnifiedTopology: true });

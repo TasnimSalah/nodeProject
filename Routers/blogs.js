@@ -1,6 +1,7 @@
 const express = require('express');
 const { create, show, getById, update, remove  } = require('../controllers/blog');
-const multer = require('multer')
+const multer = require('multer');
+const path = require("path");
 
 
 
